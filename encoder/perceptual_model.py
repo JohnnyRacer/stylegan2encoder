@@ -65,14 +65,14 @@ class PerceptualModel:
         K.set_session(self.sess)
         self.epsilon = 0.00000001
         self.lr = args.lr
-        self.decay_rate = args.decay_rate
-        self.decay_steps = args.decay_steps
-        self.img_size = args.image_size
-        self.layer = args.use_vgg_layer
-        self.vgg_loss = args.use_vgg_loss
-        self.face_mask = args.face_mask
-        self.use_grabcut = args.use_grabcut
-        self.scale_mask = args.scale_mask
+        self.decay_rate = args.decay_rate if args.decay_rate is not None else 0.01
+        self.decay_steps = args.decay_steps  if args.decay_steps  is not None else 0.01
+        self.img_size = args.image_size  if args.image_size is not None else 512
+        self.layer = args.use_vgg_layer  if args.use_vgg_layer   is not None else 1
+        self.vgg_loss = args.use_vgg_loss  if args.use_vgg_loss  is not None else 1
+        self.face_mask = args.face_mask if args.face_mask  is not None else 1
+        self.use_grabcut = args.use_grabcut  if args.use_grabcut  is not None else 1
+        self.scale_mask = args.scale_mask   if  args.scale_mask  is not None else 1
         self.mask_dir = args.mask_dir
         if (self.layer <= 0 or self.vgg_loss <= self.epsilon):
             self.vgg_loss = None
